@@ -1,28 +1,10 @@
-/* =========================================================
-   MJr SMART WEIGHING SECURITY
-   FULL FRONTEND + PICO JSON INTEGRATION
-========================================================= */
-
-
-/* =========================================================
-   PICO CONFIGURATION
-========================================================= */
-
 const PICO_IP = "http://****";
 const JSON_URL = PICO_IP + "/json";
 
 
-/* =========================================================
-   GOVERNMENT LOGIN
-========================================================= */
-
 const GOVERNMENT_ID = "GOV-ADMIN-001";
 const GOVERNMENT_PASSWORD = "******";
 
-
-/* =========================================================
-   APPLICATION STATE
-========================================================= */
 
 let currentPortal = null;
 
@@ -43,11 +25,6 @@ let weighingStarted = false;
 let lastWeightEventTime = 0;
 
 let lastTrust = 100;
-
-
-/* =========================================================
-   TELEMETRY ARRAYS
-========================================================= */
 
 const telemetry = {
 
@@ -72,19 +49,11 @@ const telemetry = {
 };
 
 
-/* =========================================================
-   WEIGHT HISTORY
-========================================================= */
-
 let weightHistory =
     JSON.parse(
         localStorage.getItem("mjr_weight_history") || "[]"
     );
 
-
-/* =========================================================
-   TAMPER HISTORY
-========================================================= */
 
 let tamperHistory =
     JSON.parse(
@@ -92,49 +61,25 @@ let tamperHistory =
     );
 
 
-/* =========================================================
-   TRUST EVENTS
-========================================================= */
-
 let trustEvents =
     JSON.parse(
         localStorage.getItem("mjr_trust_events") || "[]"
     );
-
-
-/* =========================================================
-   COMPLAINTS
-========================================================= */
 
 let complaints =
     JSON.parse(
         localStorage.getItem("mjr_complaints") || "[]"
     );
 
-
-/* =========================================================
-   NEWS
-========================================================= */
-
 let newsItems =
     JSON.parse(
         localStorage.getItem("mjr_news") || "[]"
     );
 
-
-/* =========================================================
-   AUDIT
-========================================================= */
-
 let auditLogs =
     JSON.parse(
         localStorage.getItem("mjr_audit") || "[]"
     );
-
-
-/* =========================================================
-   TAMper EVENT COUNTERS
-========================================================= */
 
 let tamperCounts = {
 
@@ -146,17 +91,7 @@ let tamperCounts = {
 
 };
 
-
-/* =========================================================
-   CHART OBJECTS
-========================================================= */
-
 const charts = {};
-
-
-/* =========================================================
-   INITIALIZATION
-========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -177,11 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateConnectionUI(false);
 
 });
-
-
-/* =========================================================
-   THEME
-========================================================= */
 
 function loadTheme() {
 
@@ -223,11 +153,6 @@ function toggleTheme() {
 
     redrawAllCharts();
 }
-
-
-/* =========================================================
-   LANDING / LOGIN
-========================================================= */
 
 function openConsumerLogin() {
 
@@ -278,11 +203,6 @@ function hideAllEntryScreens() {
         .classList.add("hidden");
 }
 
-
-/* =========================================================
-   CONSUMER LOGIN
-========================================================= */
-
 function consumerLogin(event) {
 
     event.preventDefault();
@@ -320,11 +240,6 @@ function consumerLogin(event) {
         "SUCCESS"
     );
 }
-
-
-/* =========================================================
-   GOVERNMENT LOGIN
-========================================================= */
 
 function governmentLogin(event) {
 
@@ -374,11 +289,6 @@ function governmentLogin(event) {
         );
     }
 }
-
-
-/* =========================================================
-   START APPLICATION
-========================================================= */
 
 function startApplication() {
 
@@ -431,12 +341,6 @@ function startApplication() {
     renderAllTables();
 
 }
-
-
-/* =========================================================
-   CONSUMER MACHINE
-========================================================= */
-
 function setConsumerMachine() {
 
     const machine =
@@ -467,12 +371,6 @@ function setConsumerMachine() {
         machine
     );
 }
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
 function setupNavigation() {
 
     document
@@ -591,11 +489,6 @@ function showPage(pageId) {
     }
 }
 
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
 function logout() {
 
     addAudit(
@@ -620,11 +513,6 @@ function logout() {
         .getElementById("landingPage")
         .classList.remove("hidden");
 }
-
-
-/* =========================================================
-   POLLING
-========================================================= */
 
 let pollingTimer = null;
 
@@ -659,12 +547,6 @@ function stopPolling() {
         pollingTimer = null;
     }
 }
-
-
-/* =========================================================
-   FETCH PICO
-========================================================= */
-
 async function fetchPicoData() {
 
     try {
