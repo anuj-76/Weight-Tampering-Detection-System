@@ -1,0 +1,2501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MJr | Smart Weighing Security System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================================================
+     GLOBAL TOP BAR
+========================================================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+        <div class="brand-logo">M</div>
+
+        <div>
+            <div class="brand-name">MJr</div>
+            <div class="brand-subtitle">Smart Weighing Security</div>
+        </div>
+    </div>
+
+    <div class="topbar-right">
+
+        <div class="connection-status" id="connectionStatus">
+            <span class="connection-dot"></span>
+            <span id="connectionText">CONNECTING</span>
+        </div>
+
+        <button class="theme-button" id="themeButton" onclick="toggleTheme()">
+            ☾
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     LANDING PAGE
+========================================================= -->
+
+<section id="landingPage" class="landing-page">
+
+    <div class="landing-glow glow-one"></div>
+    <div class="landing-glow glow-two"></div>
+
+    <div class="landing-content">
+
+        <div class="landing-badge">
+            🛡️ SECURE DIGITAL WEIGHING PLATFORM
+        </div>
+
+        <h1>
+            Smart Weighing.<br>
+            <span>Trusted Measurement.</span>
+        </h1>
+
+        <p>
+            Real-time monitoring, tamper detection and transparent
+            weighing security powered by Raspberry Pi Pico 2 W.
+        </p>
+
+        <div class="portal-cards">
+
+            <!-- CONSUMER -->
+
+            <div class="portal-card consumer-card">
+
+                <div class="portal-icon">
+                    👤
+                </div>
+
+                <div class="portal-label">
+                    CONSUMER
+                </div>
+
+                <h2>Consumer Portal</h2>
+
+                <p>
+                    Check your machine, weight, trust score,
+                    security status and weighing history.
+                </p>
+
+                <button onclick="openConsumerLogin()">
+                    Enter Consumer Portal
+                    <span>→</span>
+                </button>
+
+            </div>
+
+
+            <!-- GOVERNMENT -->
+
+            <div class="portal-card government-card">
+
+                <div class="portal-icon">
+                    🏛️
+                </div>
+
+                <div class="portal-label">
+                    OFFICIAL
+                </div>
+
+                <h2>Government Portal</h2>
+
+                <p>
+                    Advanced monitoring, sensor analytics,
+                    complaints, incidents and machine security.
+                </p>
+
+                <button onclick="openGovernmentLogin()">
+                    Official Login
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="landing-footer">
+            <span>●</span>
+            LIVE SECURITY INFRASTRUCTURE
+            <span class="separator">|</span>
+            PICO 2 W CONNECTED SYSTEM
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONSUMER LOGIN
+========================================================= -->
+
+<section id="consumerLogin" class="login-screen hidden">
+
+    <div class="login-box">
+
+        <button class="back-button" onclick="backToLanding()">
+            ← Back
+        </button>
+
+        <div class="login-logo consumer-login-logo">
+            👤
+        </div>
+
+        <div class="login-badge">
+            CONSUMER PORTAL
+        </div>
+
+        <h1>Access Your Machine</h1>
+
+        <p>
+            Enter the machine number printed on your weighing instrument.
+        </p>
+
+        <form onsubmit="consumerLogin(event)">
+
+            <label>Machine Number</label>
+
+            <div class="input-wrapper">
+                <span>⚖</span>
+                <input
+                    id="consumerMachineNumber"
+                    type="text"
+                    placeholder="Enter Machine Number"
+                    required
+                >
+            </div>
+
+            <button class="primary-login-button" type="submit">
+                Open Dashboard →
+            </button>
+
+        </form>
+
+        <div class="login-note">
+            No username or password required.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     GOVERNMENT LOGIN
+========================================================= -->
+
+<section id="governmentLogin" class="login-screen hidden">
+
+    <div class="login-box government-login-box">
+
+        <button class="back-button" onclick="backToLanding()">
+            ← Back
+        </button>
+
+        <div class="login-logo government-login-logo">
+            🏛️
+        </div>
+
+        <div class="login-badge">
+            OFFICIAL ACCESS
+        </div>
+
+        <h1>Government Login</h1>
+
+        <p>
+            Authorized personnel only.
+        </p>
+
+        <form onsubmit="governmentLogin(event)">
+
+            <label>Official ID</label>
+
+            <div class="input-wrapper">
+                <span>◉</span>
+                <input
+                    id="governmentId"
+                    type="text"
+                    placeholder="Enter Official ID"
+                    required
+                >
+            </div>
+
+
+            <label>Password</label>
+
+            <div class="input-wrapper">
+                <span>🔒</span>
+
+                <input
+                    id="governmentPassword"
+                    type="password"
+                    placeholder="Enter Password"
+                    required
+                >
+            </div>
+
+
+            <button class="primary-login-button government-button" type="submit">
+                Enter Command Center →
+            </button>
+
+        </form>
+
+        <div class="login-note">
+            Authorized government access only.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
+
+<div id="application" class="application hidden">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">M</div>
+
+            <div>
+                <strong>MJr</strong>
+                <small id="portalName">Consumer</small>
+            </div>
+
+        </div>
+
+
+        <!-- CONSUMER NAVIGATION -->
+
+        <nav id="consumerNavigation" class="navigation">
+
+            <div class="nav-section-title">
+                MAIN
+            </div>
+
+            <button class="nav-item active" data-page="consumerDashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-page="consumerOverview">
+                <span>◈</span>
+                Overview
+            </button>
+
+            <button class="nav-item" data-page="consumerWeight">
+                <span>⚖</span>
+                Weight History
+            </button>
+
+            <button class="nav-item" data-page="consumerTrust">
+                <span>🛡</span>
+                Trust Score
+            </button>
+
+            <button class="nav-item" data-page="consumerTamper">
+                <span>⚠</span>
+                Tamper History
+            </button>
+
+
+            <div class="nav-section-title">
+                SERVICES
+            </div>
+
+            <button class="nav-item" data-page="consumerComplaints">
+                <span>📝</span>
+                Complaints
+            </button>
+
+            <button class="nav-item" data-page="consumerNews">
+                <span>📰</span>
+                Latest News
+            </button>
+
+            <button class="nav-item" data-page="consumerMachine">
+                <span>⚙</span>
+                Machine Info
+            </button>
+
+        </nav>
+
+
+        <!-- GOVERNMENT NAVIGATION -->
+
+        <nav id="governmentNavigation" class="navigation hidden">
+
+            <div class="nav-section-title">
+                COMMAND CENTER
+            </div>
+
+            <button class="nav-item active" data-page="governmentDashboard">
+                <span>⌂</span>
+                Command Center
+            </button>
+
+            <button class="nav-item" data-page="governmentOverview">
+                <span>◈</span>
+                Overview
+            </button>
+
+            <button class="nav-item" data-page="governmentLive">
+                <span>◉</span>
+                Live Sensors
+            </button>
+
+            <button class="nav-item" data-page="governmentAnalytics">
+                <span>▥</span>
+                Analytics
+            </button>
+
+            <button class="nav-item" data-page="governmentMachines">
+                <span>⚖</span>
+                Machine Registry
+            </button>
+
+
+            <div class="nav-section-title">
+                SECURITY
+            </div>
+
+            <button class="nav-item" data-page="governmentAlerts">
+                <span>🚨</span>
+                Live Alerts
+            </button>
+
+            <button class="nav-item" data-page="governmentTamper">
+                <span>⚠</span>
+                Tamper History
+            </button>
+
+            <button class="nav-item" data-page="governmentIncidents">
+                <span>📁</span>
+                Incident Reports
+            </button>
+
+
+            <div class="nav-section-title">
+                PUBLIC SERVICES
+            </div>
+
+            <button class="nav-item" data-page="governmentComplaints">
+                <span>📝</span>
+                Complaints
+            </button>
+
+            <button class="nav-item" data-page="governmentNews">
+                <span>📰</span>
+                News Publisher
+            </button>
+
+            <button class="nav-item" data-page="governmentLocation">
+                <span>📍</span>
+                Location
+            </button>
+
+            <button class="nav-item" data-page="governmentAudit">
+                <span>▤</span>
+                Audit Log
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button class="nav-item" onclick="toggleTheme()">
+                <span>◐</span>
+                Dark / Light
+            </button>
+
+            <button class="nav-item logout-item" onclick="logout()">
+                <span>↪</span>
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- =====================================================
+             CONSUMER DASHBOARD
+        ====================================================== -->
+
+        <section id="consumerDashboard" class="page active-page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">CONSUMER SECURITY PORTAL</div>
+
+                    <h1>
+                        Welcome to your machine dashboard
+                    </h1>
+
+                    <p>
+                        Real-time status and weighing security overview.
+                    </p>
+                </div>
+
+                <div class="machine-pill">
+                    <span>●</span>
+                    <span id="consumerMachineDisplay">MACHINE</span>
+                </div>
+
+            </div>
+
+
+            <!-- TOP STATUS -->
+
+            <div class="consumer-hero-grid">
+
+                <div class="hero-status-card" id="consumerSystemCard">
+
+                    <div class="card-label">
+                        SYSTEM STATUS
+                    </div>
+
+                    <div class="big-status" id="consumerSystemStatus">
+                        NORMAL
+                    </div>
+
+                    <div class="status-description" id="consumerSystemDescription">
+                        All monitored security systems are operating normally.
+                    </div>
+
+                    <div class="status-line"></div>
+
+                    <div class="last-update">
+                        Last update:
+                        <span id="consumerLastUpdate">--</span>
+                    </div>
+
+                </div>
+
+
+                <div class="weight-hero-card">
+
+                    <div class="card-label">
+                        CURRENT WEIGHT
+                    </div>
+
+                    <div class="hero-weight">
+                        <span id="consumerWeight">0.00</span>
+                        <small>gm</small>
+                    </div>
+
+                    <div class="weight-live">
+                        <span class="live-dot"></span>
+                        LIVE READING
+                    </div>
+
+                </div>
+
+
+                <div class="trust-hero-card">
+
+                    <div class="card-label">
+                        TRUST SCORE
+                    </div>
+
+                    <div class="trust-circle-wrapper">
+
+                        <div class="trust-circle" id="consumerTrustCircle">
+
+                            <div>
+                                <strong id="consumerTrust">100</strong>
+                                <small>/100</small>
+                            </div>
+
+                        </div>
+
+                        <div class="trust-details">
+
+                            <strong id="consumerTrustStatus">
+                                HIGH TRUST
+                            </strong>
+
+                            <span>
+                                Current security confidence
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SENSOR STATUS -->
+
+            <div class="section-title-row">
+
+                <div>
+                    <div class="eyebrow">SENSOR STATUS</div>
+                    <h2>Security systems</h2>
+                </div>
+
+                <span class="simple-data-note">
+                    Simplified consumer view
+                </span>
+
+            </div>
+
+
+            <div class="consumer-sensor-grid">
+
+                <div class="simple-sensor-card">
+                    <div class="simple-sensor-icon">⚖</div>
+                    <div>
+                        <strong>Load Cell</strong>
+                        <span id="consumerLoadStatus" class="sensor-ok">● OK</span>
+                    </div>
+                </div>
+
+                <div class="simple-sensor-card">
+                    <div class="simple-sensor-icon">↕</div>
+                    <div>
+                        <strong>Tilt Sensor</strong>
+                        <span id="consumerTiltStatus" class="sensor-ok">● OK</span>
+                    </div>
+                </div>
+
+                <div class="simple-sensor-card">
+                    <div class="simple-sensor-icon">◉</div>
+                    <div>
+                        <strong>Magnetic Sensor</strong>
+                        <span id="consumerMagnetStatus" class="sensor-ok">● OK</span>
+                    </div>
+                </div>
+
+                <div class="simple-sensor-card">
+                    <div class="simple-sensor-icon">☀</div>
+                    <div>
+                        <strong>LDR / Display</strong>
+                        <span id="consumerLdrStatus" class="sensor-ok">● OK</span>
+                    </div>
+                </div>
+
+                <div class="simple-sensor-card">
+                    <div class="simple-sensor-icon">ϟ</div>
+                    <div>
+                        <strong>Voltage</strong>
+                        <span id="consumerVoltageStatus" class="sensor-ok">● OK</span>
+                    </div>
+                </div>
+
+                <div class="simple-sensor-card">
+                    <div class="simple-sensor-icon">🔐</div>
+                    <div>
+                        <strong>Security Seal</strong>
+                        <span id="consumerSealStatus" class="sensor-ok">● SECURE</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- GRAPH -->
+
+            <div class="dashboard-two-column">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="eyebrow">WEIGHT MONITORING</div>
+                            <h3>Recent weighing activity</h3>
+                        </div>
+
+                        <span class="chart-badge">
+                            LIVE
+                        </span>
+
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="consumerWeightChart"></canvas>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="eyebrow">TRUST</div>
+                            <h3>Trust score trend</h3>
+                        </div>
+
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="consumerTrustChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT WEIGHINGS -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <div class="eyebrow">HISTORY</div>
+                        <h3>Recent weighing records</h3>
+                    </div>
+
+                    <button class="text-button" onclick="showPage('consumerWeight')">
+                        View all →
+                    </button>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Time</th>
+                                <th>Weight</th>
+                                <th>Change</th>
+                                <th>Trust</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="consumerWeightTable">
+                            <tr>
+                                <td colspan="6" class="empty-table">
+                                    Waiting for weighing data...
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="quick-actions">
+
+                <button onclick="showPage('consumerComplaints')">
+                    📝 Submit Complaint
+                </button>
+
+                <button onclick="showPage('consumerNews')">
+                    📰 Latest Notices
+                </button>
+
+                <button onclick="showPage('consumerTamper')">
+                    ⚠ Tamper History
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONSUMER OVERVIEW
+        ====================================================== -->
+
+        <section id="consumerOverview" class="page">
+
+            <div class="page-header">
+                <div>
+                    <div class="eyebrow">MACHINE OVERVIEW</div>
+                    <h1>Security overview</h1>
+                    <p>Simple and transparent machine health information.</p>
+                </div>
+            </div>
+
+            <div class="overview-grid">
+
+                <div class="overview-card">
+                    <span>Machine</span>
+                    <strong id="overviewMachine">--</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>System</span>
+                    <strong id="overviewSystem">NORMAL</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Trust Score</span>
+                    <strong id="overviewTrust">100</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Current Weight</span>
+                    <strong><span id="overviewWeight">0.00</span> gm</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Machine Health</span>
+                    <strong id="overviewHealth">GOOD</strong>
+                </div>
+
+                <div class="overview-card">
+                    <span>Security Seal</span>
+                    <strong id="overviewSeal">SECURE</strong>
+                </div>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+                    <div>
+                        <div class="eyebrow">SECURITY CHECK</div>
+                        <h3>Current sensor health</h3>
+                    </div>
+                </div>
+
+                <div id="consumerOverviewSensors" class="health-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONSUMER WEIGHT
+        ====================================================== -->
+
+        <section id="consumerWeight" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">WEIGHT RECORDS</div>
+                    <h1>Weight history</h1>
+                    <p>
+                        A new record is created after a meaningful weighing event.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="dashboard-card large-chart-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <div class="eyebrow">WEIGHT GRAPH</div>
+                        <h3>Weighing history</h3>
+                    </div>
+
+                </div>
+
+                <div class="chart-container large">
+                    <canvas id="consumerFullWeightChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+                    <div>
+                        <div class="eyebrow">RECORDS</div>
+                        <h3>Every weighing event</h3>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Weight</th>
+                                <th>Change</th>
+                                <th>Trust</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="consumerFullWeightTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONSUMER TRUST
+        ====================================================== -->
+
+        <section id="consumerTrust" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SECURITY SCORE</div>
+                    <h1>Trust score</h1>
+                    <p>Understand the current security confidence of your machine.</p>
+                </div>
+
+            </div>
+
+            <div class="trust-page-grid">
+
+                <div class="trust-big-card">
+
+                    <div class="trust-circle huge" id="consumerBigTrustCircle">
+
+                        <div>
+                            <strong id="consumerBigTrust">100</strong>
+                            <small>/100</small>
+                        </div>
+
+                    </div>
+
+                    <h2 id="consumerBigTrustStatus">
+                        HIGH TRUST
+                    </h2>
+
+                    <p>
+                        The trust score is affected by detected security events.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="eyebrow">TREND</div>
+                    <h3>Trust score history</h3>
+
+                    <div class="chart-container">
+                        <canvas id="consumerFullTrustChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+                    <div>
+                        <div class="eyebrow">TRUST EVENTS</div>
+                        <h3>Why did my trust score change?</h3>
+                    </div>
+                </div>
+
+                <div id="consumerTrustEvents" class="event-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONSUMER TAMPER
+        ====================================================== -->
+
+        <section id="consumerTamper" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SECURITY HISTORY</div>
+                    <h1>Tamper history</h1>
+                    <p>Previous detected security events.</p>
+                </div>
+
+            </div>
+
+            <div id="consumerTamperEmpty" class="empty-state">
+                <div>🛡️</div>
+                <h2>No tamper events</h2>
+                <p>Your machine has no recorded tamper events in this session.</p>
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Event</th>
+                                <th>Sensor</th>
+                                <th>Trust</th>
+                                <th>Weight</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="consumerTamperTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONSUMER COMPLAINTS
+        ====================================================== -->
+
+        <section id="consumerComplaints" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">PUBLIC SERVICE</div>
+                    <h1>Submit a complaint</h1>
+                    <p>Report a problem or suspected issue with your weighing machine.</p>
+                </div>
+
+            </div>
+
+
+            <div class="complaint-layout">
+
+                <div class="dashboard-card complaint-form-card">
+
+                    <form onsubmit="submitComplaint(event)">
+
+                        <label>Machine Number</label>
+
+                        <input
+                            id="complaintMachine"
+                            type="text"
+                            readonly
+                        >
+
+
+                        <label>Complaint Category</label>
+
+                        <select id="complaintCategory" required>
+
+                            <option value="">Select category</option>
+                            <option>Wrong Weight</option>
+                            <option>Suspected Tampering</option>
+                            <option>Display Issue</option>
+                            <option>Machine Malfunction</option>
+                            <option>Other</option>
+
+                        </select>
+
+
+                        <label>Description</label>
+
+                        <textarea
+                            id="complaintDescription"
+                            rows="6"
+                            placeholder="Describe the issue..."
+                            required
+                        ></textarea>
+
+
+                        <button class="primary-button" type="submit">
+                            Submit Complaint
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="eyebrow">YOUR COMPLAINTS</div>
+                    <h3>Submitted complaints</h3>
+
+                    <div id="consumerComplaintList"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONSUMER NEWS
+        ====================================================== -->
+
+        <section id="consumerNews" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">PUBLIC NOTICES</div>
+                    <h1>Latest news</h1>
+                    <p>Official notices and updates.</p>
+                </div>
+
+            </div>
+
+            <div id="consumerNewsList" class="news-grid"></div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONSUMER MACHINE
+        ====================================================== -->
+
+        <section id="consumerMachine" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">MACHINE INFORMATION</div>
+                    <h1>Machine details</h1>
+                </div>
+
+            </div>
+
+            <div class="machine-info-grid">
+
+                <div class="dashboard-card">
+                    <span>Machine Number</span>
+                    <strong id="machineInfoNumber">--</strong>
+                </div>
+
+                <div class="dashboard-card">
+                    <span>Connection</span>
+                    <strong id="machineInfoConnection">--</strong>
+                </div>
+
+                <div class="dashboard-card">
+                    <span>System Status</span>
+                    <strong id="machineInfoStatus">--</strong>
+                </div>
+
+                <div class="dashboard-card">
+                    <span>Last Data</span>
+                    <strong id="machineInfoLastData">--</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT DASHBOARD
+        ====================================================== -->
+
+        <section id="governmentDashboard" class="page">
+
+            <div class="page-header government-header">
+
+                <div>
+
+                    <div class="eyebrow">
+                        GOVERNMENT SECURITY COMMAND CENTER
+                    </div>
+
+                    <h1>National Weighing Security Monitor</h1>
+
+                    <p>
+                        Live monitoring and security analytics from connected weighing infrastructure.
+                    </p>
+
+                </div>
+
+                <div class="official-badge">
+                    🏛️ OFFICIAL
+                </div>
+
+            </div>
+
+
+            <!-- GOVERNMENT KPI -->
+
+            <div class="government-kpi-grid">
+
+                <div class="kpi-card">
+                    <span>Machines Monitored</span>
+                    <strong id="govMachines">1</strong>
+                    <small>Connected source</small>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Active Machines</span>
+                    <strong id="govActiveMachines">1</strong>
+                    <small id="govConnectionStatus">ONLINE</small>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Machines At Risk</span>
+                    <strong id="govRiskMachines">0</strong>
+                    <small>Based on trust/security</small>
+                </div>
+
+                <div class="kpi-card danger-kpi">
+                    <span>Active Tampers</span>
+                    <strong id="govActiveTampers">0</strong>
+                    <small>Requires attention</small>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Average Trust</span>
+                    <strong id="govAverageTrust">100%</strong>
+                    <small>Current monitored data</small>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Today's Weighings</span>
+                    <strong id="govWeighings">0</strong>
+                    <small>Detected weighing events</small>
+                </div>
+
+            </div>
+
+
+            <!-- LIVE GOVERNMENT STATUS -->
+
+            <div class="gov-main-grid">
+
+                <div class="dashboard-card gov-system-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="eyebrow">LIVE SYSTEM</div>
+                            <h3>Machine security status</h3>
+                        </div>
+
+                        <span id="govSystemBadge" class="status-badge normal">
+                            NORMAL
+                        </span>
+
+                    </div>
+
+
+                    <div class="gov-machine-status">
+
+                        <div class="gov-machine-icon">
+                            ⚖
+                        </div>
+
+                        <div class="gov-machine-details">
+
+                            <strong id="govMachineNumber">
+                                MACHINE
+                            </strong>
+
+                            <span>
+                                Raspberry Pi Pico 2 W
+                            </span>
+
+                            <small id="govLastSeen">
+                                Last data: --
+                            </small>
+
+                        </div>
+
+                        <div class="gov-trust-mini">
+
+                            <span>Trust</span>
+
+                            <strong id="govDashboardTrust">
+                                100
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+                        <div>
+                            <div class="eyebrow">LIVE WEIGHT</div>
+                            <h3>Load cell</h3>
+                        </div>
+                    </div>
+
+                    <div class="gov-live-value">
+                        <strong id="govDashboardWeight">0.00</strong>
+                        <span>gm</span>
+                    </div>
+
+                    <div class="mini-stat-row">
+
+                        <div>
+                            <span>Min</span>
+                            <strong id="govWeightMin">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Max</span>
+                            <strong id="govWeightMax">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Average</span>
+                            <strong id="govWeightAverage">--</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- GOVERNMENT GRAPH ROW -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <div class="eyebrow">LIVE TELEMETRY</div>
+                        <h3>Weight & trust correlation</h3>
+                    </div>
+
+                    <span class="chart-badge">
+                        REAL DATA
+                    </span>
+
+                </div>
+
+                <div class="chart-container extra-large">
+                    <canvas id="govWeightTrustChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- SENSOR STATUS -->
+
+            <div class="section-title-row">
+
+                <div>
+                    <div class="eyebrow">SENSOR HEALTH</div>
+                    <h2>Connected sensor status</h2>
+                </div>
+
+                <button class="text-button" onclick="showPage('governmentLive')">
+                    Detailed monitoring →
+                </button>
+
+            </div>
+
+
+            <div class="gov-sensor-status-grid">
+
+                <div class="gov-sensor-card">
+
+                    <div class="gov-sensor-top">
+                        <span class="sensor-symbol">⚖</span>
+                        <span id="govLoadHealth" class="health-pill good">OK</span>
+                    </div>
+
+                    <strong>Load Cell</strong>
+
+                    <span class="sensor-reading">
+                        <span id="govLoadReading">0.00</span> gm
+                    </span>
+
+                </div>
+
+
+                <div class="gov-sensor-card">
+
+                    <div class="gov-sensor-top">
+                        <span class="sensor-symbol">↕</span>
+                        <span id="govTiltHealth" class="health-pill good">OK</span>
+                    </div>
+
+                    <strong>MPU6050 Tilt</strong>
+
+                    <span class="sensor-reading">
+                        <span id="govTiltReading">0.00</span>°
+                    </span>
+
+                </div>
+
+
+                <div class="gov-sensor-card">
+
+                    <div class="gov-sensor-top">
+                        <span class="sensor-symbol">◉</span>
+                        <span id="govMagnetHealth" class="health-pill good">OK</span>
+                    </div>
+
+                    <strong>QMC5883L</strong>
+
+                    <span class="sensor-reading">
+                        <span id="govMagReading">0 / 0 / 0</span>
+                    </span>
+
+                </div>
+
+
+                <div class="gov-sensor-card">
+
+                    <div class="gov-sensor-top">
+                        <span class="sensor-symbol">☀</span>
+                        <span id="govLdrHealth" class="health-pill good">OK</span>
+                    </div>
+
+                    <strong>LDR</strong>
+
+                    <span class="sensor-reading">
+                        <span id="govLdrReading">0</span>
+                    </span>
+
+                </div>
+
+
+                <div class="gov-sensor-card">
+
+                    <div class="gov-sensor-top">
+                        <span class="sensor-symbol">ϟ</span>
+                        <span id="govVoltageHealth" class="health-pill good">OK</span>
+                    </div>
+
+                    <strong>Voltage</strong>
+
+                    <span class="sensor-reading">
+                        <span id="govVoltageReading">0.00</span> V
+                    </span>
+
+                </div>
+
+
+                <div class="gov-sensor-card">
+
+                    <div class="gov-sensor-top">
+                        <span class="sensor-symbol">🔐</span>
+                        <span id="govSealHealth" class="health-pill good">SECURE</span>
+                    </div>
+
+                    <strong>Security Seal</strong>
+
+                    <span class="sensor-reading" id="govSealReading">
+                        SECURE
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ALERT -->
+
+            <div class="dashboard-card gov-alert-preview">
+
+                <div class="card-header">
+
+                    <div>
+                        <div class="eyebrow">SECURITY CENTER</div>
+                        <h3>Latest security activity</h3>
+                    </div>
+
+                    <button class="text-button" onclick="showPage('governmentAlerts')">
+                        Open alerts →
+                    </button>
+
+                </div>
+
+                <div id="govLatestAlert" class="alert-placeholder">
+                    <span>✓</span>
+                    No active security alerts.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT OVERVIEW
+        ====================================================== -->
+
+        <section id="governmentOverview" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">OFFICIAL OVERVIEW</div>
+                    <h1>System overview</h1>
+                    <p>Complete current state of the connected weighing instrument.</p>
+                </div>
+
+            </div>
+
+
+            <div class="government-kpi-grid">
+
+                <div class="kpi-card">
+                    <span>Current Weight</span>
+                    <strong id="govOverviewWeight">0.00 gm</strong>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Trust Score</span>
+                    <strong id="govOverviewTrust">100</strong>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Tilt Angle</span>
+                    <strong id="govOverviewTilt">0.00°</strong>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Voltage</span>
+                    <strong id="govOverviewVoltage">0.00 V</strong>
+                </div>
+
+                <div class="kpi-card">
+                    <span>LDR</span>
+                    <strong id="govOverviewLdr">0</strong>
+                </div>
+
+                <div class="kpi-card">
+                    <span>Magnetic State</span>
+                    <strong id="govOverviewMagnet">NORMAL</strong>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+                    <div>
+                        <div class="eyebrow">MACHINE HEALTH</div>
+                        <h3>Detailed security matrix</h3>
+                    </div>
+                </div>
+
+                <div id="governmentHealthMatrix" class="government-health-matrix"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT LIVE SENSORS
+        ====================================================== -->
+
+        <section id="governmentLive" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">REAL-TIME TELEMETRY</div>
+                    <h1>Live sensor monitoring</h1>
+                    <p>
+                        Raw values received directly from the Pico JSON endpoint.
+                    </p>
+                </div>
+
+                <span class="chart-badge">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <!-- LOAD CELL -->
+
+            <div class="sensor-monitor-card">
+
+                <div class="sensor-monitor-header">
+
+                    <div>
+                        <div class="eyebrow">LOAD CELL / HX711</div>
+                        <h2>Weight</h2>
+                    </div>
+
+                    <div class="sensor-current-value">
+                        <strong id="liveWeightValue">0.00</strong>
+                        <span>gm</span>
+                    </div>
+
+                </div>
+
+                <div class="chart-container large">
+                    <canvas id="govWeightChart"></canvas>
+                </div>
+
+                <div class="sensor-stats">
+
+                    <div>
+                        <span>Minimum</span>
+                        <strong id="liveWeightMin">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Maximum</span>
+                        <strong id="liveWeightMax">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Average</span>
+                        <strong id="liveWeightAvg">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Weighings</span>
+                        <strong id="liveWeightCount">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TRUST -->
+
+            <div class="sensor-monitor-card">
+
+                <div class="sensor-monitor-header">
+
+                    <div>
+                        <div class="eyebrow">SECURITY ENGINE</div>
+                        <h2>Trust Score</h2>
+                    </div>
+
+                    <div class="sensor-current-value">
+                        <strong id="liveTrustValue">100</strong>
+                        <span>/100</span>
+                    </div>
+
+                </div>
+
+                <div class="chart-container large">
+                    <canvas id="govTrustChart"></canvas>
+                </div>
+
+                <div class="sensor-stats">
+
+                    <div>
+                        <span>Minimum</span>
+                        <strong id="liveTrustMin">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Maximum</span>
+                        <strong id="liveTrustMax">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Average</span>
+                        <strong id="liveTrustAvg">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Trust Drops</span>
+                        <strong id="liveTrustDrops">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TILT -->
+
+            <div class="sensor-monitor-card">
+
+                <div class="sensor-monitor-header">
+
+                    <div>
+                        <div class="eyebrow">MPU6050</div>
+                        <h2>Tilt & acceleration</h2>
+                    </div>
+
+                    <div class="raw-sensor-values">
+
+                        <span>
+                            X:
+                            <strong id="rawTiltX">0</strong>°
+                        </span>
+
+                        <span>
+                            Y:
+                            <strong id="rawTiltY">0</strong>°
+                        </span>
+
+                        <span>
+                            Angle:
+                            <strong id="rawTiltAngle">0</strong>°
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="chart-container large">
+                    <canvas id="govTiltChart"></canvas>
+                </div>
+
+                <div class="raw-value-grid">
+
+                    <div>
+                        <span>Angle X</span>
+                        <strong id="rawTiltX2">0</strong>°
+                    </div>
+
+                    <div>
+                        <span>Angle Y</span>
+                        <strong id="rawTiltY2">0</strong>°
+                    </div>
+
+                    <div>
+                        <span>Vibration</span>
+                        <strong id="rawVibration">FALSE</strong>
+                    </div>
+
+                    <div>
+                        <span>Status</span>
+                        <strong id="rawTiltStatus">NORMAL</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAGNET -->
+
+            <div class="sensor-monitor-card">
+
+                <div class="sensor-monitor-header">
+
+                    <div>
+                        <div class="eyebrow">QMC5883L</div>
+                        <h2>Magnetic field</h2>
+                    </div>
+
+                    <div class="raw-sensor-values">
+
+                        <span>X: <strong id="rawMagX">0</strong></span>
+                        <span>Y: <strong id="rawMagY">0</strong></span>
+                        <span>Z: <strong id="rawMagZ">0</strong></span>
+
+                    </div>
+
+                </div>
+
+                <div class="chart-container large">
+                    <canvas id="govMagChart"></canvas>
+                </div>
+
+                <div class="raw-value-grid">
+
+                    <div>
+                        <span>Mag X</span>
+                        <strong id="rawMagX2">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Mag Y</span>
+                        <strong id="rawMagY2">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Mag Z</span>
+                        <strong id="rawMagZ2">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Status</span>
+                        <strong id="rawMagStatus">NORMAL</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LDR -->
+
+            <div class="sensor-monitor-card">
+
+                <div class="sensor-monitor-header">
+
+                    <div>
+                        <div class="eyebrow">LDR / DISPLAY FILTER</div>
+                        <h2>Display monitoring</h2>
+                    </div>
+
+                    <div class="sensor-current-value">
+                        <strong id="liveLdrValue">0</strong>
+                        <span>ADC</span>
+                    </div>
+
+                </div>
+
+                <div class="chart-container large">
+                    <canvas id="govLdrChart"></canvas>
+                </div>
+
+                <div class="raw-value-grid">
+
+                    <div>
+                        <span>LDR Value</span>
+                        <strong id="rawLdr">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Threshold</span>
+                        <strong>12000</strong>
+                    </div>
+
+                    <div>
+                        <span>Filter</span>
+                        <strong id="rawLdrFilter">NORMAL</strong>
+                    </div>
+
+                    <div>
+                        <span>Status</span>
+                        <strong id="rawLdrStatus">NORMAL</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- VOLTAGE -->
+
+            <div class="sensor-monitor-card">
+
+                <div class="sensor-monitor-header">
+
+                    <div>
+                        <div class="eyebrow">VOLTAGE SENSOR</div>
+                        <h2>Supply voltage</h2>
+                    </div>
+
+                    <div class="sensor-current-value">
+                        <strong id="liveVoltageValue">0.00</strong>
+                        <span>V</span>
+                    </div>
+
+                </div>
+
+                <div class="chart-container large">
+                    <canvas id="govVoltageChart"></canvas>
+                </div>
+
+                <div class="raw-value-grid">
+
+                    <div>
+                        <span>Current</span>
+                        <strong id="rawVoltage">0.00 V</strong>
+                    </div>
+
+                    <div>
+                        <span>Minimum</span>
+                        <strong id="rawVoltageMin">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Maximum</span>
+                        <strong id="rawVoltageMax">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Status</span>
+                        <strong id="rawVoltageStatus">NORMAL</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEAL -->
+
+            <div class="sensor-monitor-card seal-monitor">
+
+                <div class="sensor-monitor-header">
+
+                    <div>
+                        <div class="eyebrow">PHYSICAL SECURITY</div>
+                        <h2>Security seal</h2>
+                    </div>
+
+                    <div id="liveSealBadge" class="seal-badge secure">
+                        SECURE
+                    </div>
+
+                </div>
+
+                <div class="seal-large-display">
+
+                    <div class="seal-icon" id="liveSealIcon">
+                        🔐
+                    </div>
+
+                    <div>
+                        <strong id="liveSealStatus">
+                            SECURITY SEAL SECURE
+                        </strong>
+
+                        <span id="liveSealTime">
+                            No trip recorded.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT ANALYTICS
+        ====================================================== -->
+
+        <section id="governmentAnalytics" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">DATA ANALYTICS</div>
+                    <h1>Security analytics</h1>
+                    <p>Graphical analysis of the live telemetry collected by the system.</p>
+                </div>
+
+            </div>
+
+
+            <div class="analytics-grid">
+
+                <div class="analytics-card">
+                    <div class="eyebrow">WEIGHT</div>
+                    <h3>Weight history</h3>
+                    <div class="chart-container">
+                        <canvas id="analyticsWeight"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="analytics-card">
+                    <div class="eyebrow">TRUST</div>
+                    <h3>Trust score history</h3>
+                    <div class="chart-container">
+                        <canvas id="analyticsTrust"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="analytics-card">
+                    <div class="eyebrow">TILT</div>
+                    <h3>Tilt angle</h3>
+                    <div class="chart-container">
+                        <canvas id="analyticsTilt"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="analytics-card">
+                    <div class="eyebrow">MAGNETIC</div>
+                    <h3>Magnetic field</h3>
+                    <div class="chart-container">
+                        <canvas id="analyticsMag"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="analytics-card">
+                    <div class="eyebrow">LDR</div>
+                    <h3>LDR monitoring</h3>
+                    <div class="chart-container">
+                        <canvas id="analyticsLdr"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="analytics-card">
+                    <div class="eyebrow">VOLTAGE</div>
+                    <h3>Voltage stability</h3>
+                    <div class="chart-container">
+                        <canvas id="analyticsVoltage"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="analytics-card wide-analytics">
+
+                    <div class="eyebrow">SECURITY EVENTS</div>
+                    <h3>Tamper events by type</h3>
+
+                    <div class="tamper-analytics">
+
+                        <div>
+                            <span>⚠ Tilt</span>
+                            <strong id="analyticsTiltEvents">0</strong>
+                        </div>
+
+                        <div>
+                            <span>◉ Magnet</span>
+                            <strong id="analyticsMagEvents">0</strong>
+                        </div>
+
+                        <div>
+                            <span>☀ Display</span>
+                            <strong id="analyticsLdrEvents">0</strong>
+                        </div>
+
+                        <div>
+                            <span>ϟ Voltage</span>
+                            <strong id="analyticsVoltageEvents">0</strong>
+                        </div>
+
+                        <div>
+                            <span>🔐 Seal</span>
+                            <strong id="analyticsSealEvents">0</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="event-bars" id="eventBars"></div>
+
+                </div>
+
+
+                <div class="analytics-card wide-analytics">
+
+                    <div class="eyebrow">SENSOR HEALTH</div>
+                    <h3>Current sensor health matrix</h3>
+
+                    <div id="analyticsSensorHealth" class="sensor-health-bars"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT MACHINE REGISTRY
+        ====================================================== -->
+
+        <section id="governmentMachines" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">REGISTRY</div>
+                    <h1>Machine registry</h1>
+                    <p>Connected weighing machines available to this monitoring instance.</p>
+                </div>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Machine</th>
+                                <th>Connection</th>
+                                <th>System</th>
+                                <th>Trust</th>
+                                <th>Weight</th>
+                                <th>Seal</th>
+                                <th>Risk</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="governmentMachineTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT ALERTS
+        ====================================================== -->
+
+        <section id="governmentAlerts" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SECURITY OPERATIONS</div>
+                    <h1>Live alerts</h1>
+                    <p>Current and recent machine security alerts.</p>
+                </div>
+
+            </div>
+
+            <div id="governmentAlertsList" class="alerts-list"></div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT TAMPER HISTORY
+        ====================================================== -->
+
+        <section id="governmentTamper" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SECURITY RECORDS</div>
+                    <h1>Tamper history</h1>
+                    <p>Detailed security event records.</p>
+                </div>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Time</th>
+                                <th>Machine</th>
+                                <th>Sensor</th>
+                                <th>Value</th>
+                                <th>Trust Before</th>
+                                <th>Trust After</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="governmentTamperTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT INCIDENTS
+        ====================================================== -->
+
+        <section id="governmentIncidents" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">INVESTIGATION</div>
+                    <h1>Incident reports</h1>
+                    <p>Security incidents generated from live tamper events.</p>
+                </div>
+
+            </div>
+
+            <div id="incidentReports" class="incident-grid"></div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT COMPLAINTS
+        ====================================================== -->
+
+        <section id="governmentComplaints" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">PUBLIC COMPLAINTS</div>
+                    <h1>Complaint reader</h1>
+                    <p>Review and manage complaints submitted by consumers.</p>
+                </div>
+
+            </div>
+
+            <div id="governmentComplaintList" class="complaint-list"></div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT NEWS
+        ====================================================== -->
+
+        <section id="governmentNews" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">PUBLIC INFORMATION</div>
+                    <h1>News publisher</h1>
+                    <p>Publish official notices for consumers.</p>
+                </div>
+
+            </div>
+
+
+            <div class="news-publisher-layout">
+
+                <div class="dashboard-card">
+
+                    <form onsubmit="publishNews(event)">
+
+                        <label>News / Notice Title</label>
+
+                        <input
+                            id="newsTitle"
+                            type="text"
+                            placeholder="Enter title"
+                            required
+                        >
+
+
+                        <label>Category</label>
+
+                        <select id="newsCategory" required>
+
+                            <option value="">Select category</option>
+                            <option>Important Notice</option>
+                            <option>Regulation</option>
+                            <option>Consumer Advisory</option>
+                            <option>System Update</option>
+                            <option>General</option>
+
+                        </select>
+
+
+                        <label>Priority</label>
+
+                        <select id="newsPriority" required>
+
+                            <option>Normal</option>
+                            <option>Important</option>
+                            <option>Critical</option>
+
+                        </select>
+
+
+                        <label>Description</label>
+
+                        <textarea
+                            id="newsDescription"
+                            rows="6"
+                            placeholder="Write official notice..."
+                            required
+                        ></textarea>
+
+
+                        <button class="primary-button" type="submit">
+                            Publish Notice
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="eyebrow">PUBLISHED</div>
+                    <h3>Current notices</h3>
+
+                    <div id="governmentNewsList"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT LOCATION
+        ====================================================== -->
+
+        <section id="governmentLocation" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">LOCATION SERVICES</div>
+                    <h1>Machine location</h1>
+                    <p>Location information available from the authorized monitoring device.</p>
+                </div>
+
+            </div>
+
+            <div class="location-card dashboard-card">
+
+                <div class="location-icon">
+                    📍
+                </div>
+
+                <h2 id="locationStatus">
+                    Location permission required
+                </h2>
+
+                <p id="locationText">
+                    Browser/device location can be requested from the official monitoring terminal.
+                </p>
+
+                <button class="primary-button" onclick="getLocation()">
+                    Get Current Location
+                </button>
+
+                <div id="locationCoordinates" class="location-coordinates"></div>
+
+            </div>
+
+            <div class="dashboard-card location-note">
+
+                <strong>Important</strong>
+
+                <p>
+                    The Raspberry Pi Pico 2 W does not contain GPS hardware.
+                    Therefore this page does not invent GPS coordinates.
+                    Location is obtained from the authorized browser/device when permission is available.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GOVERNMENT AUDIT
+        ====================================================== -->
+
+        <section id="governmentAudit" class="page">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">ACCOUNTABILITY</div>
+                    <h1>Audit log</h1>
+                    <p>Actions performed in this monitoring portal.</p>
+                </div>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Action</th>
+                                <th>Portal</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="auditTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     TAMPER POPUP
+========================================================= -->
+
+<div id="tamperOverlay" class="tamper-overlay hidden">
+
+    <div class="tamper-backdrop"></div>
+
+    <div class="tamper-modal">
+
+        <div class="tamper-pulse-ring"></div>
+
+        <div class="tamper-warning-icon">
+            ⚠
+        </div>
+
+        <div class="tamper-label">
+            SECURITY ALERT
+        </div>
+
+        <h1>TAMPER DETECTED</h1>
+
+        <div class="tamper-reason" id="tamperReason">
+            SECURITY EVENT
+        </div>
+
+        <p id="tamperDescription">
+            Possible unauthorized interference detected.
+        </p>
+
+
+        <div class="tamper-live-grid">
+
+            <div>
+                <span>Machine</span>
+                <strong id="tamperMachine">--</strong>
+            </div>
+
+            <div>
+                <span>Trust Score</span>
+                <strong id="tamperTrust">--</strong>
+            </div>
+
+            <div>
+                <span>Weight</span>
+                <strong id="tamperWeight">-- gm</strong>
+            </div>
+
+            <div>
+                <span>Time</span>
+                <strong id="tamperTime">--</strong>
+            </div>
+
+        </div>
+
+
+        <button class="acknowledge-button" onclick="acknowledgeTamper()">
+            ACKNOWLEDGE
+        </button>
+
+        <div class="tamper-footer">
+            Event will remain recorded in tamper history.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     INCIDENT MODAL
+========================================================= -->
+
+<div id="incidentModal" class="generic-modal hidden">
+
+    <div class="generic-modal-content">
+
+        <button class="modal-close" onclick="closeIncidentModal()">
+            ×
+        </button>
+
+        <div class="eyebrow">INCIDENT REPORT</div>
+
+        <h2 id="incidentModalTitle">
+            Security Incident
+        </h2>
+
+        <div id="incidentModalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div id="toast" class="toast hidden">
+    <span id="toastIcon">✓</span>
+    <span id="toastMessage">Done</span>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
